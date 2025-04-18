@@ -10,6 +10,8 @@ from util.feature_B import compactness
 from util.feature_C import rgb_var
 from util.feature_C import slic_segmentation
 
+from util.classifier_kNN import knn_algorithm_smote
+
 def extract_features(folder_dir):
   feature_list = []
   for filename in os.listdir(folder_dir):
@@ -51,3 +53,19 @@ def extract_features(folder_dir):
             })
   df = pd.DataFrame(feature_list)
   return df
+
+#loading the dataset (uses extract_features function from main_baseline.py)
+df = extract_features(r"2025-FYP-groupHyena/data")
+
+#ensure the lesion_id column is of type string
+df['lesion_id'] = df['lesion_id'].astype(str)
+
+#load the csv file containing the labels
+labels_df = pd.read_csv(r"C:\Users\sarac\OneDrive\Desktop\PDS\2025-FYP-groupHyena\dataset.csv")  
+
+# Merge only the matching data points
+df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
+
+#call the knn model
+result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True)
+test_accuracy_smote = result_smote[0]  # Extract the accuracy score from the result tuple or whatever we need
