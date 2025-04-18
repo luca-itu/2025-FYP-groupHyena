@@ -1,13 +1,6 @@
 from skimage.segmentation import slic
 from statistics import variance
 import numpy as np
-from skimage.color import rgb2gray
-from skimage.segmentation import slic
-from skimage.filters import threshold_otsu
-import os
-import cv2
-from regionGrowingMask import regionGrowing
-import numpy as np
 
 def slic_segmentation(mask, image, n_segments=30, compactness=0.1):
 
