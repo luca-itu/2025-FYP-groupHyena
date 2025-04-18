@@ -51,12 +51,3 @@ def extract_features(folder_dir):
             })
   df = pd.DataFrame(feature_list)
   return df
-
-
-base_dir = os.path.dirname(__file__)
-folder_dir = os.path.join(base_dir, r"data") 
-    
-# Extract features
-df_features = extract_features(folder_dir)
-
-df_features.to_csv(r'dataset_chosen.csv', index=False)
