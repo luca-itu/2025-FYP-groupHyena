@@ -38,6 +38,8 @@ def asymmetry(mask):
     vert_xor_area = np.logical_xor(left_half, flipped_right)
 
     total_pxls = np.sum(mask)
+    if total_pxls == 0:
+        return 0.0
     hori_asymmetry_pxls = np.sum(hori_xor_area)
     vert_asymmetry_pxls = np.sum(vert_xor_area)
 
