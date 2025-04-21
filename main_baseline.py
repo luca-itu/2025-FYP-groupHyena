@@ -68,4 +68,4 @@ df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
 
 #call the knn model
 result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True)
-test_accuracy_smote = result_smote[0]  # Extract the accuracy score from the result tuple or whatever we need
+test_accuracy_smote = result_smote[1]  # Extract the accuracy score from the result tuple or whatever we need
