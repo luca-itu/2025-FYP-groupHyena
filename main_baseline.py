@@ -14,7 +14,7 @@ from util.classifier_kNN import knn_algorithm_smote
 
 def extract_features(folder_dir):
   feature_list = []
-  for filename in os.listdir(folder_dir):
+  for filename in os.listdir(folder_dir)[:170]:
       if filename.endswith(".png"):
           lesion_id = filename.split('.')[0] 
           file_path = os.path.join(folder_dir, filename)
@@ -54,14 +54,26 @@ def extract_features(folder_dir):
   df = pd.DataFrame(feature_list)
   return df
 
+
+def main():
+    df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
+    result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True)
+    print(result_smote[1])
+
+if __name__ == "__main__":
+    main()
+
+
 #loading the dataset (uses extract_features function from main_baseline.py)
-df = extract_features(r"2025-FYP-groupHyena/data")
+df = extract_features(r"data")
 
 #ensure the lesion_id column is of type string
 df['lesion_id'] = df['lesion_id'].astype(str)
 
 #load the csv file containing the labels
-labels_df = pd.read_csv(r"C:\Users\sarac\OneDrive\Desktop\PDS\2025-FYP-groupHyena\dataset.csv")  
+labels_df = pd.read_csv(r"dataset.csv")  
+
+labels_df['lesion_id'] = labels_df['lesion_id'].astype(str)  # Ensure lesion_id is string
 
 # Merge only the matching data points
 df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
