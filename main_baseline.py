@@ -14,9 +14,9 @@ from util.classifier_kNN import knn_algorithm_smote
 
 def extract_features(folder_dir):
   feature_list = []
-  for filename in os.listdir(folder_dir)[:170]:
+  for filename in os.listdir(folder_dir):
       if filename.endswith(".png"):
-          lesion_id = filename.split('.')[0] 
+          img_id = filename 
           file_path = os.path.join(folder_dir, filename)
           img = cv2.imread(file_path)
           img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -44,7 +44,7 @@ def extract_features(folder_dir):
           red_var, green_var, blue_var = rgb_var(img, slic_segmentation(segmentation_mask_rgb, img))
 
           feature_list.append({
-                'lesion_id': lesion_id,  # Use lesion ID from the filename
+                'img_id': img_id,  
                 'asymmetry_score': A_score,
                 'border_score': B_score,
                 'color_score_red': round(red_var, 3),
@@ -55,29 +55,12 @@ def extract_features(folder_dir):
   return df
 
 
-def main():
-    df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
-    result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True)
-    print(result_smote[1])
-
-if __name__ == "__main__":
-    main()
 
 
-#loading the dataset (uses extract_features function from main_baseline.py)
 df = extract_features(r"data")
-
-#ensure the lesion_id column is of type string
-df['lesion_id'] = df['lesion_id'].astype(str)
-
-#load the csv file containing the labels
 labels_df = pd.read_csv(r"dataset.csv")  
 
-labels_df['lesion_id'] = labels_df['lesion_id'].astype(str)  # Ensure lesion_id is string
+df_with_labels = df.merge(labels_df, on="img_id", how="inner")
+result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True) # for testing purposes
 
-# Merge only the matching data points
-df_with_labels = df.merge(labels_df, on="lesion_id", how="inner")
-
-#call the knn model
-result_smote = knn_algorithm_smote(df_with_labels, k=5, distance_metric='euclidean', use_smote=True)
-test_accuracy_smote = result_smote[1]  # Extract the accuracy score from the result tuple or whatever we need
+#print(result_smote[1])

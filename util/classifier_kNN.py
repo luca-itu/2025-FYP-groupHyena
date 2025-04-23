@@ -15,7 +15,7 @@ def knn_algorithm_smote(df, k=5, distance_metric='euclidean', use_smote=False):
 
     # Apply SMOTE if specified, only on the training set
     if use_smote:
-        smote = SMOTE(random_state=42,  k_neighbors=2)
+        smote = SMOTE(random_state=42)
         x_train, y_train = smote.fit_resample(x_train, y_train)
     
     # Standardize the data (important for KNN)
