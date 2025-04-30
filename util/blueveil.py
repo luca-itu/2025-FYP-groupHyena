@@ -11,4 +11,7 @@ def measure_blue_veil(image):
             if b > 60 and (r - 46 < g) and (g < r + 15):
                 count += 1
 
-    return count
+    total_pixels = height * width
+    normalized_score = count / total_pixels
+
+    return normalized_score
