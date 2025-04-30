@@ -9,7 +9,6 @@ from util.feature_A import mean_asymmetry
 from util.feature_B import compactness
 from util.feature_C import rgb_var
 from util.feature_C import slic_segmentation
-
 from util.classifier_kNN import knn_algorithm_smote
 
 def extract_features(folder_dir):
@@ -19,8 +18,7 @@ def extract_features(folder_dir):
           img_id = filename 
           file_path = os.path.join(folder_dir, filename)
           img = cv2.imread(file_path)
-          img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
+          
           #resize if needed
           max_size = 256
           h, w = img.shape[:2]
@@ -29,7 +27,7 @@ def extract_features(folder_dir):
               new_size = (int(w * scale), int(h * scale))
               img = cv2.resize(img, new_size, interpolation=cv2.INTER_AREA)
 
-          # segmentation using region growing, finds the darkest pixel in the image
+          #segmentation using region growing, finds the darkest pixel in the image
           gray_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
           min_index = np.unravel_index(np.argmin(gray_img), gray_img.shape)
         
@@ -49,12 +47,10 @@ def extract_features(folder_dir):
                 'border_score': B_score,
                 'color_score_red': round(red_var, 3),
                 'color_score_green': round(green_var, 3),
-                'color_score_blue': round(blue_var, 3)
+                'color_score_blue': round(blue_var, 3),         
             })
   df = pd.DataFrame(feature_list)
   return df
-
-
 
 
 df = extract_features(r"data")
