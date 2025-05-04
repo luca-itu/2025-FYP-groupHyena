@@ -1,11 +1,27 @@
-import random
 import os
-from os import listdir
+import cv2
 import numpy as np
-import cv2
-import pandas as pd
-import cv2
 
+def getImages(folder_dir):
+    images = []
+    img_ids = []
+    for filename in os.listdir(folder_dir):
+        if filename.endswith(".png"):
+            img_id = filename 
+            file_path = os.path.join(folder_dir, filename)
+            img = cv2.imread(file_path)
+          
+            #resize if needed
+            max_size = 256
+            h, w = img.shape[:2]
+            scale = min(max_size / w, max_size / h)
+            if scale < 1:
+                new_size = (int(w * scale), int(h * scale))
+                img = cv2.resize(img, new_size, interpolation=cv2.INTER_AREA)
+            images.append(img)
+            img_ids.append(img_id)
+
+    return images, img_ids  
 
 # def readImageFile(file_path):
 #     # read image as an 8-bit array
@@ -61,21 +77,3 @@ import cv2
 #     def __iter__(self):
 #         # fill in with your own code below
 #         pass
-
-
-def getImages(folder_dir):
-    for filename in os.listdir(folder_dir):
-      if filename.endswith(".png"):
-          img_id = filename 
-          file_path = os.path.join(folder_dir, filename)
-          img = cv2.imread(file_path)
-          
-          #resize if needed
-          max_size = 256
-          h, w = img.shape[:2]
-          scale = min(max_size / w, max_size / h)
-          if scale < 1:
-              new_size = (int(w * scale), int(h * scale))
-              img = cv2.resize(img, new_size, interpolation=cv2.INTER_AREA)
-
-    return img, img_id  
