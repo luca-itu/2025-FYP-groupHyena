@@ -41,7 +41,7 @@ def extract_features(folder_dir):
             'color_score_green': round(green_var, 3),
             'color_score_blue': round(blue_var, 3),         
             })
-        df = pd.DataFrame(feature_list)
+    df = pd.DataFrame(feature_list)
     return df
 
 
