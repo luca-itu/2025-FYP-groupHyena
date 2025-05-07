@@ -25,13 +25,10 @@ def extract_features(folder_dir):
 
         segmentation_mask = regionGrowing(gray_img, min_index, threshold=20) #threshold set to lower, maybe do edge dialation
 
-        #mask for RGB image for color feature
-        segmentation_mask_rgb = regionGrowing(img, min_index, threshold=20) 
-
         #Feature extraction
         A_score = round(mean_asymmetry(segmentation_mask),3)
         B_score = round(compactness(segmentation_mask),3)
-        red_var, green_var, blue_var = rgb_var(img, slic_segmentation(segmentation_mask_rgb, img))
+        red_var, green_var, blue_var = rgb_var(img, slic_segmentation(segmentation_mask, img))
 
         feature_list.append({
             'img_id': img_id,  

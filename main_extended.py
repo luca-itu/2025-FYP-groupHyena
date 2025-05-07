@@ -28,15 +28,12 @@ def extract_features(folder_dir):
         #hair removail output to work further with
         img_inpaint = removeHair(img, gray_img)
         
-        segmentation_mask = regionGrowing(gray_img, min_index, threshold=20) #threshold set to lower, maybe do edge dialation
-
-        #mask for RGB image for color feature
-        segmentation_mask_rgb = regionGrowing(img_inpaint, min_index, threshold=20) 
+        segmentation_mask = regionGrowing(gray_img, min_index, threshold=20)
 
         #Feature extraction
         A_score = round(mean_asymmetry(segmentation_mask),3)
         B_score = round(compactness(segmentation_mask),3)
-        red_var, green_var, blue_var = rgb_var(img_inpaint, slic_segmentation(segmentation_mask_rgb, img_inpaint))
+        red_var, green_var, blue_var = rgb_var(img_inpaint, slic_segmentation(segmentation_mask, img_inpaint))
         blue_veil = round(measure_blue_veil(img_inpaint),3)
 
         feature_list.append({
