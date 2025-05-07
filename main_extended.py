@@ -13,6 +13,7 @@ from util.feature_C import slic_segmentation
 from util.img_util import getImages
 from util.blueveil import measure_blue_veil
 from util.inpaint_util import removeHair
+from util.classifier_RandomTree import random_tree_regression_classifier
 
 from joblib import Parallel, delayed
 
@@ -54,10 +55,10 @@ def extract_df_extended(folder_dir, n_jobs=1):
     return pd.DataFrame(features)
 
 
-#df = extract_df_extended(r"data")
-#labels_df = pd.read_csv(r"dataset.csv")  
+df = extract_df_extended(r"data")
+labels_df = pd.read_csv(r"dataset.csv")  
 
-#df_with_labels = df.merge(labels_df, on="img_id", how="inner")
-#result = random_forest_classifier(df_with_labels, use_smote=False) 
+df_with_labels = df.merge(labels_df, on="img_id", how="inner")
+result = random_tree_regression_classifier(df_with_labels, use_smote=False) 
 
-#print(result[something])
+print(result[2])
