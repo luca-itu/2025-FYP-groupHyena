@@ -4,17 +4,14 @@ import numpy as np
 import cv2
 import pandas as pd
 from util.regionGrowing_util import regionGrowing
-
 from util.feature_A import mean_asymmetry
 from util.feature_B import compactness
 from util.feature_C import rgb_var
 from util.feature_C import slic_segmentation
-#from util.classifier_LogReg import logistic_regression_classifier random forest here
 from util.img_util import getImages
 from util.blueveil import measure_blue_veil
 from util.inpaint_util import removeHair
-from util.classifier_RandomTree import random_tree_regression_classifier
-
+from util.classifier_RandomForest import random_forest_classifier
 from joblib import Parallel, delayed
 
 
@@ -59,6 +56,6 @@ df = extract_df_extended(r"data")
 labels_df = pd.read_csv(r"dataset.csv")  
 
 df_with_labels = df.merge(labels_df, on="img_id", how="inner")
-result = random_tree_regression_classifier(df_with_labels, use_smote=False) 
+result = random_forest_classifier(df_with_labels, use_smote=False) 
 
 print(result[2])

@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 import pandas as pd
 from util.regionGrowing_util import regionGrowing
-
 from util.feature_A import mean_asymmetry
 from util.feature_B import compactness
 from util.feature_C import rgb_var
@@ -47,10 +46,10 @@ def extract_df_baseline(folder_dir, n_jobs=1):
     
     return pd.DataFrame(features)
 
-#df = extract_df_baseline(r"data")
-#labels_df = pd.read_csv(r"dataset.csv")  
+df = extract_df_baseline(r"data")
+labels_df = pd.read_csv(r"dataset.csv")  
 
-#df_with_labels = df.merge(labels_df, on="img_id", how="inner")
-#result = logistic_regression_classifier(df_with_labels, use_smote=False) # for testing purposes
+df_with_labels = df.merge(labels_df, on="img_id", how="inner")
+result = logistic_regression_classifier(df_with_labels, use_smote=False) # for testing purposes
 
-#print(result[2])
+print(result[2])
