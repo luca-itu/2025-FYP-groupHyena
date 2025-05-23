@@ -28,13 +28,16 @@ def random_forest_classifier(df, use_smote=False):
     y_val_pred = clf.predict(X_val)
     val_accuracy = accuracy_score(y_val, y_val_pred)
 
+    # predicted probabilities
+    y_val_probs = clf.predict_proba(X_val)
+
     # test predictions
     #y_test_pred = clf.predict(X_test)
     #test_accuracy = accuracy_score(y_test, y_test_pred)
 
-    # predicted probabilities
+    # test probabilities
     #y_test_probs = clf.predict_proba(X_test)
 
     #return y_test, y_test_pred, test_accuracy, y_test_probs
-    return y_val, y_val_pred, val_accuracy
+    return y_val, y_val_pred, val_accuracy, y_val_probs
 
