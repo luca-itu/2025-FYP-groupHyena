@@ -51,11 +51,11 @@ def extract_df_extended(folder_dir, n_jobs=1):
     )
     return pd.DataFrame(features)
 
+if __name__ == "__main__":
+    df = extract_df_extended(r"data")
+    labels_df = pd.read_csv(r"dataset.csv")  
 
-df = extract_df_extended(r"data")
-labels_df = pd.read_csv(r"dataset.csv")  
+    df_with_labels = df.merge(labels_df, on="img_id", how="inner")
+    result = random_forest_classifier(df_with_labels, use_smote=False) 
 
-df_with_labels = df.merge(labels_df, on="img_id", how="inner")
-result = random_forest_classifier(df_with_labels, use_smote=False) 
-
-print(result[2])
+    print(result[2])
