@@ -21,7 +21,7 @@ def random_forest_classifier(df, use_smote=False):
         sm = SMOTE(random_state=42, k_neighbors=k_neighbors)
         X_train, y_train = sm.fit_resample(X_train, y_train)
 
-    clf = RandomForestClassifier(n_estimators=10, random_state=42, oob_score=True)
+    clf = RandomForestClassifier(n_estimators=100, random_state=42, oob_score=True)
     clf.fit(X_train, y_train)
 
     # predictions
