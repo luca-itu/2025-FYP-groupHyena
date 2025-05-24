@@ -40,11 +40,10 @@ def logistic_regression_classifier(df, use_smote=False):
     y_val_probs = clf.predict_proba(X_val_scaled)
 
     # Test prediction and accuracy
-    #y_test_pred = clf.predict(X_test_scaled)
-    #test_accuracy = accuracy_score(y_test, y_test_pred)
+    y_test_pred = clf.predict(X_test_scaled)
+    test_accuracy = accuracy_score(y_test, y_test_pred)
 
     # Get probabilities for test set
-    #y_test_probs = clf.predict_proba(X_test_scaled)
+    y_test_probs = clf.predict_proba(X_test_scaled)
 
-    #return val_accuracy, test_accuracy, y_test, y_test_pred, y_test_probs
-    return y_val, y_val_pred, val_accuracy, y_val_probs
+    return val_accuracy, y_val_probs, test_accuracy, y_test, y_test_pred, y_test_probs 
