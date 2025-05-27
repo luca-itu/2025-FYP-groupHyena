@@ -24,19 +24,26 @@ def random_forest_classifier(df, use_smote=False):
     clf = RandomForestClassifier(n_estimators=100, random_state=42, oob_score=True)
     clf.fit(X_train, y_train)
 
-    # predictions
-    y_val_pred = clf.predict(X_val)
-    val_accuracy = accuracy_score(y_val, y_val_pred)
-
     # predicted probabilities
     y_val_probs = clf.predict_proba(X_val)
+    y_val_prob_1 = y_val_probs[:,1]
 
-    # test predictions
-    #y_test_pred = clf.predict(X_test)
-    #test_accuracy = accuracy_score(y_test, y_test_pred)
+    # validation predictions with threshold
+    threshold_val = 0.05
+    y_val_pred = (y_val_prob_1>=threshold_val).astype(int)
+
+    # compute validation accuracy
+    val_accuracy = accuracy_score(y_val, y_val_pred)
 
     # test probabilities
-    #y_test_probs = clf.predict_proba(X_test)
+    y_test_probs = clf.predict_proba(X_test)
+    y_test_prob_1 = y_test_probs[:,1]
+    
+    # test predictions
+    threshold_test = 0.01
+    y_test_pred = (y_test_prob_1 >=threshold_test).astype(int)
 
-    #return y_test, y_test_pred, test_accuracy, y_test_probs
-    return y_val, y_val_pred, val_accuracy, y_val_probs
+    # compute test accuracy
+    test_accuracy = accuracy_score(y_test, y_test_pred)
+
+    return y_test, y_test_pred, test_accuracy, y_test_probs
