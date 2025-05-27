@@ -1,5 +1,5 @@
 import cv2
-
+import pandas as pd
 
 def removeHair(img_org, img_gray, kernel_size=25, threshold=10, radius=3):
     # kernel for the morphological filtering
@@ -16,3 +16,6 @@ def removeHair(img_org, img_gray, kernel_size=25, threshold=10, radius=3):
 
     return img_out
 
+df = pd.read_csv(r"C:\Users\karat\OneDrive\Dokumentumok\ITU\2_semester\Projects\2025-FYP-groupHyena\result\log_reg_features_results")
+new_df = df[["img_id","ground_truth", "prediction", "probability_0", "probability_1"]]
+new_df.to_csv("result_baseline.csv", index=False)
