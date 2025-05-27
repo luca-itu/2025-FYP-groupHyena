@@ -46,4 +46,4 @@ def random_forest_classifier(df, use_smote=False):
     # compute test accuracy
     test_accuracy = accuracy_score(y_test, y_test_pred)
 
-    return y_test, y_test_pred, test_accuracy, y_test_probs
+    return y_test, y_test_pred, test_accuracy, y_test_probs, y_val, y_val_pred, val_accuracy, y_val_probs

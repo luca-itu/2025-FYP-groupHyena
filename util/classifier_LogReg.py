@@ -46,4 +46,4 @@ def logistic_regression_classifier(df, use_smote=False):
     # Get probabilities for test set
     y_test_probs = clf.predict_proba(X_test_scaled)
 
-    return val_accuracy, y_val_probs, test_accuracy, y_test, y_test_pred, y_test_probs 
+    return y_test, y_test_pred, test_accuracy, y_test_probs, y_val, y_val_pred, val_accuracy, y_val_probs
