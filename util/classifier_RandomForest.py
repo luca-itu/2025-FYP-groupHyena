@@ -40,4 +40,3 @@ def random_forest_classifier(df, use_smote=False):
 
     #return y_test, y_test_pred, test_accuracy, y_test_probs
     return y_val, y_val_pred, val_accuracy, y_val_probs
-
