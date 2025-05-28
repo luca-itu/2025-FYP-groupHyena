@@ -6,8 +6,8 @@ from sklearn.metrics import accuracy_score
 
 def logistic_regression_classifier(df, use_smote=False):
     # Extract numeric features and target column
-    X = df.select_dtypes(include=['number']).drop(columns=['ground_truth_labels'], errors='ignore')
-    y = df['ground_truth_labels']
+    X = df.select_dtypes(include=['number']).drop(columns=['ground_truth'], errors='ignore')
+    y = df['ground_truth']
 
     # Train-validation-test split: 70% train, 15% val, 15% test
     X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
