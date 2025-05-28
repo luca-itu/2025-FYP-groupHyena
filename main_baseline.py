@@ -21,7 +21,7 @@ def extract_feature_baseline(img, img_id):
     gray_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     min_index = np.unravel_index(np.argmin(gray_img), gray_img.shape)
 
-    segmentation_mask = regionGrowing(gray_img, min_index, threshold=20) #threshold set to lower, maybe do edge dialation
+    segmentation_mask = regionGrowing(gray_img, min_index, threshold=20)
 
     #Feature extraction
     A_score = round(mean_asymmetry(segmentation_mask),3)
